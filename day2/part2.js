@@ -1,7 +1,9 @@
 // Day 2: Rock Paper Scissors: Part Two //
 let fs = require("fs");
 
-const inputs = fs.readFileSync("input.txt", "utf-8").toString().split("\n");
+const inputs = fs.readFileSync("input.txt", "utf-8")
+  .toString()
+  .split("\n");
 
 let myPoints = 0;
 
@@ -10,82 +12,58 @@ const partTwo = () => {
     let opponentPick = input.split(" ")[0];
     let myPlan = input.split(" ")[1];
 
-    // The plan is to lose
-
-    if (myPlan == "X") {
-      console.log("Plan is to lose!");
-
-      if (opponentPick == "A") {
-        console.log(
-          "Opponent picks rock and plan is to lose. So, you pick scissors."
-        );
-        myPoints = myPoints + 3 + 0;
-      }
-      if (opponentPick == "B") {
-        console.log(
-          "Opponent picks paper and plan is to lose. So, you pick rock."
-        );
-        myPoints = myPoints + 1 + 0;
-      }
-      if (opponentPick == "C") {
-        console.log(
-          "Opponent picks scissors and plan is to lose. So, you pick paper."
-        );
-        myPoints = myPoints + 2 + 0;
-      }
-    }
-
-    // The plan is to draw
-
-    if (myPlan == "Y") {
-      console.log("Plan is to draw!");
-
-      if (opponentPick == "A") {
-        console.log(
-          "Opponent picks rock and plan is to draw. So, you pick rock."
-        );
-        myPoints = myPoints + 1 + 3;
-      }
-      if (opponentPick == "B") {
-        console.log(
-          "Opponent picks paper and plan is to draw. So, you pick paper."
-        );
-        myPoints = myPoints + 2 + 3;
-      }
-      if (opponentPick == "C") {
-        console.log(
-          "Opponent picks scissors and plan is to draw. So, you pick scissors."
-        );
-        myPoints = myPoints + 3 + 3;
-      }
-    }
-
-    // The plan is to win
-
-    if (myPlan == "Z") {
-      console.log("Plan is to win!");
-
-      if (opponentPick == "A") {
-        console.log(
-          "Opponent picks rock and plan is to win. So, you pick paper."
-        );
-        myPoints = myPoints + 2 + 6;
-      }
-      if (opponentPick == "B") {
-        console.log(
-          "Opponent picks paper and plan is to win. So, you pick scissors."
-        );
-        myPoints = myPoints + 3 + 6;
-      }
-      if (opponentPick == "C") {
-        console.log(
-          "Opponent picks scissors and plan is to win. So, you pick rock."
-        );
-        myPoints = myPoints + 1 + 6;
-      }
+    switch (opponentPick) {
+      case "A":
+        switch (myPlan) {
+          case "X":
+            console.log("Opponent picks rock and plan is to lose, you pick scissors.");
+            myPoints = myPoints + 3 + 0;
+            break;
+          case "Y":
+            console.log("Opponent picks rock and plan is to draw, you pick rock.");
+            myPoints = myPoints + 1 + 3;
+            break;
+          case "Z":
+            console.log("Opponent picks rock and plan is to win, you pick paper.");
+            myPoints = myPoints + 2 + 6;
+            break;
+        }
+        break;
+      case "B":
+        switch (myPlan) {
+          case "X":
+            console.log("Opponent picks paper and plan is to lose, you pick rock.");
+            myPoints = myPoints + 1 + 0;
+            break;
+          case "Y":
+            console.log("Opponent picks paper and plan is to draw, you pick paper.");
+            myPoints = myPoints + 2 + 3;
+            break;
+          case "Z":
+            console.log("Opponent picks paper and plan is to win, you pick scissors.");
+            myPoints = myPoints + 3 + 6;
+            break;
+        }
+        break;
+      case "C":
+        switch (myPlan) {
+          case "X":
+            console.log("Opponent picks scissors and plan is to lose, you pick paper.");
+            myPoints = myPoints + 2 + 0;
+            break;
+          case "Y":
+            console.log("Opponent picks scissors and plan is to draw, you pick scissors.");
+            myPoints = myPoints + 3 + 3;
+            break;
+          case "Z":
+            console.log("Opponent picks scissors and plan is to win, you pick rock.");
+            myPoints = myPoints + 1 + 6;
+            break;
+        }
+        break;
     }
   }
-  console.log(myPoints);
+  console.log("My points: " + myPoints);
 };
 
 partTwo();
