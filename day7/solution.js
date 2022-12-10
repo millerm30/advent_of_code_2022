@@ -1,7 +1,7 @@
+// Day 7: No Space Left On Device //
 const fs = require("fs");
 
-const data = fs.readFileSync("input.txt", "utf-8")
-  .split("\n");
+const data = fs.readFileSync("input.txt", "utf-8").split("\n");
 
 class TreeNode {
   constructor(key, parent = null) {
@@ -55,7 +55,7 @@ const recursiveOne = (node) => {
   for (let i = 0; i < node.children.length; i++) {
     recursiveOne(node.children[i]);
   }
-}
+};
 
 const getTotalSum = (node) => {
   let sum = node.value;
@@ -63,11 +63,10 @@ const getTotalSum = (node) => {
     sum += getTotalSum(node.children[i]);
   }
   return sum;
-}
+};
 
 recursiveOne(tree);
 console.log("Part 1: " + acum);
-
 
 // Part 2
 const partTwo = () => {
@@ -78,7 +77,7 @@ const partTwo = () => {
   let spaceToFree = spaceNeeded - currentSpace;
   findNodeBiggerThan(tree, spaceToFree);
   console.log("Part 2: " + best);
-}
+};
 
 let best;
 let dif = 70000000;
@@ -93,6 +92,6 @@ const findNodeBiggerThan = (node, spaceToFree) => {
   for (let i = 0; i < node.children.length; i++) {
     findNodeBiggerThan(node.children[i], spaceToFree);
   }
-}
+};
 
 partTwo();

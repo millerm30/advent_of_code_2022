@@ -1,6 +1,7 @@
-const fs = require('fs');
+// Day 6: Tunning Trouble //
+const fs = require("fs");
 
-const input = fs.readFileSync("input.txt", "utf-8")
+const input = fs.readFileSync("input.txt", "utf-8");
 
 const getLastCharacters = (amount, characters) => {
   characters = characters.slice(characters.length - amount, characters.length);
@@ -11,7 +12,7 @@ const getLastCharacters = (amount, characters) => {
   return lastCharacters;
 };
 
-const findStartPoints = ( markerLength, input ) => {
+const findStartPoints = (markerLength, input) => {
   let letters = [];
   let counter = 0;
   for (const letter of input) {
@@ -28,5 +29,3 @@ const findStartPoints = ( markerLength, input ) => {
 
 findStartPoints(4, input);
 findStartPoints(14, input);
-
-

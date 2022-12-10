@@ -1,15 +1,18 @@
-const fs = require('fs');
+// Day 9: Rope Bridge //
+const fs = require("fs");
 
-const inputs = fs.readFileSync("input.txt", "utf-8" )
+const inputs = fs
+  .readFileSync("input.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")
-  .map(line => { const [letter, number] = line.split(" ")
+  .map((line) => {
+    const [letter, number] = line.split(" ");
     return {
       direction: letter,
-      totalMoves: parseInt(number)
-    }
-});
+      totalMoves: parseInt(number),
+    };
+  });
 
 const moveDefinitions = {
   R: {
@@ -52,7 +55,7 @@ class Point {
       this.y += Math.abs(directionY) === 2 ? directionY / 2 : directionY;
     }
   }
-};
+}
 
 const visitedNodes = (x, y, visited) => {
   visited.add(`${x}-${y}`);
@@ -78,7 +81,7 @@ const PartTwo = () => {
   const knots = new Array(10).fill(0).map((_) => new Point(0, 0));
   const visited = new Set();
   visitedNodes(0, 0, visited);
-  
+
   for (const input of inputs) {
     for (let i = 0; i < input.totalMoves; i++) {
       knots[0].move(input.direction);

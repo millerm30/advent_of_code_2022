@@ -1,8 +1,7 @@
+// Day 2: Rock Paper Scissors: Part Two //
 let fs = require("fs");
 
-const inputs = fs.readFileSync("input.txt", "utf-8")
-  .toString()
-  .split("\n");
+const inputs = fs.readFileSync("input.txt", "utf-8").toString().split("\n");
 
 let myPoints = 0;
 

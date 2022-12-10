@@ -1,6 +1,8 @@
+// Day 8: Treetop Tree House //
 const fs = require("fs");
 
-const inputs = fs.readFileSync("input.txt", "utf-8")
+const inputs = fs
+  .readFileSync("input.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")
@@ -24,7 +26,7 @@ const checkLine = (y, x, dy, dx, map, visible) => {
       setVisible(y, x, visible);
     }
   }
-}
+};
 
 const checkLine2 = (y, x, dy, dx, map) => {
   let visible = 0;
@@ -41,7 +43,7 @@ const checkLine2 = (y, x, dy, dx, map) => {
     }
   }
   return visible;
-}
+};
 
 const partOne = () => {
   const visible = new Set();
@@ -55,7 +57,7 @@ const partOne = () => {
   }
 
   console.log(visible.size);
-}
+};
 
 const partTwo = () => {
   let max = 0;
@@ -71,7 +73,7 @@ const partTwo = () => {
   }
 
   console.log(max);
-}
+};
 
 partOne();
 partTwo();
