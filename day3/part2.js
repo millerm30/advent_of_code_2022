@@ -1,7 +1,8 @@
 let fs = require("fs");
-const input = fs.readFileSync("./input.txt", "utf-8").toString();
 
-const backpackItemsList = input.split("\n");
+const inputs = fs.readFileSync("./input.txt", "utf-8")
+  .toString()
+  .split("\n");
 
 function findCommonCharacters(s1, s2, s3) {
   for (let i in s1) {
@@ -44,4 +45,4 @@ const findSumOfAuthBadges = input => {
   console.log(points);
 };
 
-findSumOfAuthBadges(backpackItemsList);
+findSumOfAuthBadges(inputs);

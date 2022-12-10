@@ -1,7 +1,8 @@
 const fs = require("fs");
-const input = fs.readFileSync("./input.txt", "utf-8").toString();
 
-const backpackItemsList = input.split("\n");
+const inputs = fs.readFileSync("input.txt", "utf-8")
+  .toString()
+  .split("\n");
 
 const splitStringFromHalf = (string, index) => {
   const result = [string.slice(0, index), string.slice(index)];
@@ -34,10 +35,10 @@ let countPoints = (letter) => {
 
 let allPoints = 0;
 
-for (const backpack of backpackItemsList) {
-  let middle = Math.floor(backpack.length / 2);
+for (const input of inputs) {
+  let middle = Math.floor(input.length / 2);
   let [firstCompartment, secondCompartment] = splitStringFromHalf(
-    backpack,
+    input,
     middle
   );
 

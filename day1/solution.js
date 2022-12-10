@@ -1,12 +1,13 @@
 let fs = require("fs");
-const input = fs.readFileSync("./input.txt", "utf-8").toString();
 
-const caloriesPerElfArray = input.split(/\n\n/gi);
+const inputs = fs.readFileSync("input.txt", "utf-8")
+  .toString()
+  .split(/\n\n/gi)
 
 let caloriesPerElfCombinedArray = [];
 
-for (let i in caloriesPerElfArray) {
-  let currentElfsCaloriesArray = caloriesPerElfArray[i].split(/\n/gi);
+for (let i in inputs) {
+  let currentElfsCaloriesArray = inputs[i].split(/\n/gi);
   let currentElfsCaloriesCombined = 0;
 
   currentElfsCaloriesArray.forEach((index) => {

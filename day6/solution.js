@@ -1,7 +1,6 @@
-// Day 6:
-
 const fs = require('fs');
-const input = fs.readFileSync('./input.txt', 'utf8')
+
+const input = fs.readFileSync("input.txt", "utf-8")
 
 const getLastCharacters = (amount, characters) => {
   characters = characters.slice(characters.length - amount, characters.length);
@@ -25,7 +24,7 @@ const findStartPoints = ( markerLength, input ) => {
       return;
     }
   }
-}
+};
 
 findStartPoints(4, input);
 findStartPoints(14, input);

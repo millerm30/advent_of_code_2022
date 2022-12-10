@@ -1,7 +1,8 @@
 const fs = require("fs");
-const data = fs.readFileSync("./input.txt", "utf8").split("\n");
 
-// Tree structure
+const data = fs.readFileSync("input.txt", "utf-8")
+  .split("\n");
+
 class TreeNode {
   constructor(key, parent = null) {
     this.key = key;
@@ -11,7 +12,6 @@ class TreeNode {
   }
 }
 
-// Build the tree
 let tree = new TreeNode("/");
 let pointer = tree;
 let i = 0;
@@ -39,7 +39,6 @@ while (i < data.length) {
     pointer = tree;
     i++;
   } else {
-    // case $ cd <directory>
     let name = line.split(" ")[2];
     pointer = pointer.children.find((x) => x.key == name);
     i++;
@@ -48,21 +47,17 @@ while (i < data.length) {
 
 // Part 1
 let acum = 0;
-
-recursive1(tree);
-console.log("Part 1: " + acum);
-
-function recursive1(node) {
+const recursiveOne = (node) => {
   let totalSum = getTotalSum(node);
   if (totalSum <= 100000) {
     acum += totalSum;
   }
   for (let i = 0; i < node.children.length; i++) {
-    recursive1(node.children[i]);
+    recursiveOne(node.children[i]);
   }
 }
 
-function getTotalSum(node) {
+const getTotalSum = (node) => {
   let sum = node.value;
   for (let i = 0; i < node.children.length; i++) {
     sum += getTotalSum(node.children[i]);
@@ -70,9 +65,12 @@ function getTotalSum(node) {
   return sum;
 }
 
-// Part 2
+recursiveOne(tree);
+console.log("Part 1: " + acum);
 
-function part2() {
+
+// Part 2
+const partTwo = () => {
   let totalSpaceUsed = getTotalSum(tree);
   let totalSpace = 70000000;
   let spaceNeeded = 30000000;
@@ -83,8 +81,8 @@ function part2() {
 }
 
 let best;
-let dif = 70000000; // Maximum possible difference
-function findNodeBiggerThan(node, spaceToFree) {
+let dif = 70000000;
+const findNodeBiggerThan = (node, spaceToFree) => {
   let totalSum = getTotalSum(node);
   if (totalSum > spaceToFree) {
     if (totalSum - spaceToFree < dif) {
@@ -97,4 +95,4 @@ function findNodeBiggerThan(node, spaceToFree) {
   }
 }
 
-part2();
+partTwo();

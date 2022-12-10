@@ -10,7 +10,7 @@ function loadData() {
   const instructions = [];
   let parsedData = false;
 
-  fs.readFileSync("./input.txt")
+  fs.readFileSync("input.txt")
     .toString()
     .split("\n")
     .forEach((line) => {
