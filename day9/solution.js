@@ -1,8 +1,7 @@
 // Day 9: Rope Bridge //
-const fs = require("fs");
+import { readFileSync } from "fs";
 
-const inputs = fs
-  .readFileSync("input.txt", "utf-8")
+const inputs = readFileSync("input.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")

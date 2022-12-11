@@ -1,7 +1,7 @@
 // Day 6: Tunning Trouble //
-const fs = require("fs");
+import { readFileSync } from "fs";
 
-const input = fs.readFileSync("input.txt", "utf-8");
+const input = readFileSync("input.txt", "utf-8");
 
 const getLastCharacters = (amount, characters) => {
   characters = characters.slice(characters.length - amount, characters.length);

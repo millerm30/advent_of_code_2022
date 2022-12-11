@@ -1,4 +1,4 @@
-const fs = require("fs");
+import { readFileSync } from "fs";
 
 const END_DATA = " 1   2   3   4   5   6   7   8   9 ";
 const chunkExpr = new RegExp(/.{1,4}/g);
@@ -10,7 +10,7 @@ function loadData() {
   const instructions = [];
   let parsedData = false;
 
-  fs.readFileSync("input.txt")
+  readFileSync("input.txt")
     .toString()
     .split("\n")
     .forEach((line) => {

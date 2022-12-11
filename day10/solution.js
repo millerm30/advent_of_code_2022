@@ -1,7 +1,7 @@
 // Day 10: Cathode-Ray Tibe //
-const fs = require("fs");
+import { readFileSync } from "fs";
 
-const inputs = fs.readFileSync("smallTest.txt", "utf-8")
+const inputs = readFileSync("testData.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")
@@ -18,11 +18,11 @@ const inputs = fs.readFileSync("smallTest.txt", "utf-8")
 console.log(inputs);
 
 const partOne = () => {
-  console.log("This is part one!")
+  console.log("Part One");
 };
 
 const partTwo = () => {
-  console.log("This is part two!")
+  console.log("Part Two");
 };
 
 partOne();

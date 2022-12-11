@@ -1,8 +1,7 @@
 // Day 8: Treetop Tree House //
-const fs = require("fs");
+import { readFileSync } from "fs";
 
-const inputs = fs
-  .readFileSync("input.txt", "utf-8")
+const inputs = readFileSync("input.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")

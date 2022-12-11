@@ -1,7 +1,7 @@
 // Day 1: Calorie Counting //
-let fs = require("fs");
+import { readFileSync } from "fs";
 
-const inputs = fs.readFileSync("input.txt", "utf-8")
+const inputs = readFileSync("input.txt", "utf-8")
   .toString()
   .split(/\n\n/gi);
 

@@ -1,7 +1,7 @@
 // Day 2: Rock Paper Scissors Part: One //
-let fs = require("fs");
+import { readFileSync } from "fs";
 
-const inputs = fs.readFileSync("input.txt", "utf-8")
+const inputs = readFileSync("input.txt", "utf-8")
   .toString()
   .split("\n");
 

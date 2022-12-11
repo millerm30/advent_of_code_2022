@@ -1,7 +1,7 @@
 // Day 7: No Space Left On Device //
-const fs = require("fs");
+import { readFileSync } from "fs";
 
-const data = fs.readFileSync("input.txt", "utf-8").split("\n");
+const data = readFileSync("input.txt", "utf-8").split("\n");
 
 class TreeNode {
   constructor(key, parent = null) {
