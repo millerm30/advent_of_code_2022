@@ -1,14 +1,14 @@
 // Day 1: Calorie Counting //
 import { readFileSync } from "fs";
 
-const inputs = readFileSync("input.txt", "utf-8")
+const input = readFileSync("input.txt", "utf-8")
   .toString()
   .split(/\n\n/gi);
 
 let caloriesPerElfCombinedArray = [];
 
-for (let i in inputs) {
-  let currentElfsCaloriesArray = inputs[i].split(/\n/gi);
+for (let i in input) {
+  const currentElfsCaloriesArray = input[i].split(/\n/gi);
   let currentElfsCaloriesCombined = 0;
 
   currentElfsCaloriesArray.forEach((index) => {
