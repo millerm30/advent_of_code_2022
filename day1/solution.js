@@ -1,7 +1,9 @@
 // Day 1: Calorie Counting //
 let fs = require("fs");
 
-const inputs = fs.readFileSync("input.txt", "utf-8").toString().split(/\n\n/gi);
+const inputs = fs.readFileSync("input.txt", "utf-8")
+  .toString()
+  .split(/\n\n/gi);
 
 let caloriesPerElfCombinedArray = [];
 
