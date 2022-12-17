@@ -9,7 +9,7 @@ const getInput = (): {
   end: { y: number, x: number },
   map: number[][],
 } => {
-  const input = readFileSync("input.txt", "utf-8")
+  const input = readFileSync("./input.txt", "utf-8")
     .replace(/\r/g, "")
     .trim()
     .split("\n");
@@ -136,6 +136,7 @@ const partOne = (): void => {
   );
 };
 
+
 partOne();
 
 // Part Two //
@@ -143,3 +144,73 @@ partOne();
 // Find a better starting point //
 // find the shortest path from any square at eleveation a to the square marked E //
 // find the fewest steps required to move starting from any square with elevation a to the location that should get the best signal? //
+
+const getNeighborsTwo = (x: number, y: number, map: number[][]) => {
+  const response: number[] = [];
+  const directions: Array<[number, number]> = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+
+  for (const [dx, dy] of directions) {
+    const neighborX = x + dx;
+    const neighborY = y + dy;
+
+    if (neighborY < 0 || neighborY >= map.length || neighborX < 0 || neighborX >= map[y].length) {
+      continue;
+    }
+
+    if (map[neighborY][neighborX] >= map[y][x] - 1) {
+      response.push(pointToInterger(neighborX, neighborY));
+    }
+  }
+  return response;
+};
+
+
+const TravelMeterTwo = (map: number[][], start: { x: number, y: number } ) => {
+  const dist: Record<number, number> = {};
+  const prev: Record<number, number> = {};
+  let queue: number[] = [];
+  for (let y = 0; y < map.length; y++) {
+    for (let x = 0; x < map[y].length; x++) {
+      const id = pointToInterger(x, y);
+      dist[id] = Infinity;
+      queue.push(id);
+    }
+  }
+  dist[pointToInterger(start.x, start.y)] = 0;
+
+  while (queue.length) {
+    let u: number | null = null;
+    for (const current of queue) {
+      if (u === null || dist[current] < dist[u]) {
+        u = current;
+      }
+    }
+    const point = intergerToPoint(u);
+    if (map[point.y][point.x] === 0) {
+      return dist[u];
+    }
+    queue = queue.filter((x) => x !== u);
+
+    const neighbors = getNeighborsTwo(point.x, point.y, map);
+    for (const v of neighbors) {
+      if (queue.includes(v)) {
+        const alt = dist[u] + 1;
+        if (alt < dist[v]) {
+          dist[v] = alt;
+          prev[v] = u;
+        }
+      }
+    }
+  }
+  return null;
+};
+
+const partTwo = (): void => {
+  const input = getInput();
+  const distance = TravelMeterTwo(input.map, input.end);
+  console.log(
+    `The fewest number of steps is ${distance} to get the best signal!`
+  );
+};
+
+partTwo();
