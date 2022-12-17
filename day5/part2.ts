@@ -5,9 +5,9 @@ const chunkExpr = new RegExp(/.{1,4}/g);
 const itemExpr = new RegExp(/[^A-Z]/g);
 const instructionExpr = new RegExp(/\d+/g);
 
-function loadData() {
-  const stacks = [];
-  const instructions = [];
+function loadData(): { stacks: string[][]; instructions: number[][] } {
+  const stacks: string[][] = [];
+  const instructions: number[][] = [];
   let parsedData = false;
 
   readFileSync("input.txt")
@@ -21,7 +21,7 @@ function loadData() {
       }
 
       if (!parsedData) {
-        const items = line
+        const items: string[] = line
           .match(chunkExpr)
           .map((item) => item.replace(itemExpr, ""));
 
@@ -51,12 +51,12 @@ instructions.forEach(([amount, sourceStackNumber, targetStackNumber]) => {
   const targetStack = stacks[targetStackNumber - 1];
   const movedItems = sourceStack.splice(0, amount);
 
-  targetStack.unshift(...movedItems.reverse());
+  targetStack.unshift(...movedItems);
 });
 
-const getTheBoxStack = () => {
-  const getStackOne = stacks.map((stack) => stack[0]).join("");
-  return getStackOne;
-};
+const getTheNewStacks = (): string => {
+  const getStackTwo = stacks.map((stack) => stack[0]).join("");
+  return getStackTwo;
+}
 
-console.log(getTheBoxStack());
+console.log(getTheNewStacks());

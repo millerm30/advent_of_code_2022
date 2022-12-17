@@ -1,15 +1,15 @@
 import { readFileSync } from "fs";
 
-const inputs = readFileSync("input.txt", "utf-8")
+const inputs = readFileSync("./input.txt", "utf-8")
   .toString()
   .split("\n");
 
-const splitStringFromHalf = (string, index) => {
+const splitStringFromHalf = (string: string, index: number): string[] => {
   const result = [string.slice(0, index), string.slice(index)];
   return result;
 };
 
-const findCommonCharacters = (s1, s2) => {
+const findCommonCharacters = (s1: any, s2: any): any | boolean => {
   for (let i in s1) {
     let commonCharacter = s2.includes(s1[i]) ? s1[i] : false;
     if (commonCharacter) {
@@ -18,7 +18,7 @@ const findCommonCharacters = (s1, s2) => {
   }
 };
 
-let countPoints = (letter) => {
+let countPoints = (letter: string): number => {
   const alpha = Array.from(Array(26)).map((e, i) => i + 65);
   const alphabetCapital = alpha.map((x) => String.fromCharCode(x));
 

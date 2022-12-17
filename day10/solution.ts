@@ -1,14 +1,12 @@
-// Day 10: Cathode-Ray Tibe //
 import { readFileSync } from "fs";
 
-const dataInput = readFileSync("input.txt", "utf-8")
+const dataInput: { output: string, value?: number }[] = readFileSync("input.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")
   .map((line) => {
     const input = line.split(" ");
-    const response = [];
-    response.output = input[0];
+    const response: { output: string, value?: number } = { output: input[0] };
     if (response.output === "addx") {
       response.value = parseInt(input[1]);
   }
@@ -16,7 +14,13 @@ const dataInput = readFileSync("input.txt", "utf-8")
 });
 
 class CPU {
-  constructor(program) {
+  program: { output: string, value?: number }[];
+  currentLine: number;
+  cycle: number;
+  wait: number;
+  registers: { X: number };
+
+  constructor(program: { output: string, value?: number }[]) {
     this.program = program;
     this.currentLine = 0;
     this.cycle = 1;
@@ -26,7 +30,7 @@ class CPU {
     };
   }
 
-  runCycle() {
+  runCycle(): boolean {
     if (this.currentLine >= this.program.length) {
       return false;
     }
@@ -61,7 +65,12 @@ const partOne = () => {
 }
 
 class CRT {
-  constructor(width = 40, height = 6) {
+  width: number;
+  height: number;
+  currentIndex: number;
+  content: string[][];
+
+  constructor(width: number = 40, height: number = 6) {
     this.width = width;
     this.height = height;
     this.currentIndex = 0;
@@ -69,7 +78,7 @@ class CRT {
     );
   }
 
-  runCycle(spritePosition) {
+  runCycle(spritePosition: number) {
     const x = this.currentIndex % this.width;
     const y = Math.floor(this.currentIndex / this.width);
 

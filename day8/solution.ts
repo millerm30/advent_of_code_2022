@@ -1,17 +1,17 @@
 // Day 8: Treetop Tree House //
 import { readFileSync } from "fs";
 
-const inputs = readFileSync("input.txt", "utf-8")
+const inputs = readFileSync("./input.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")
   .map((line) => [...line].map(Number));
 
-const setVisible = (y, x, visible) => {
+const setVisible = (y: number, x: number , visible: Set<string>) => {
   visible.add(`${y}-${x}`);
 };
 
-const checkLine = (y, x, dy, dx, map, visible) => {
+const checkLine = (y: number, x: number, dy: number, dx: number, map: number[][], visible: Set<string>) => {
   setVisible(y, x, visible);
   let maximum = map[y][x];
   while (true) {
@@ -27,7 +27,7 @@ const checkLine = (y, x, dy, dx, map, visible) => {
   }
 };
 
-const checkLine2 = (y, x, dy, dx, map) => {
+const checkLine2 = (y: number, x: number, dy: number, dx: number, map: number[][]) => {
   let visible = 0;
   let maximum = map[y][x];
   while (true) {
@@ -45,7 +45,7 @@ const checkLine2 = (y, x, dy, dx, map) => {
 };
 
 const partOne = () => {
-  const visible = new Set();
+  const visible = new Set<string>();
   for (let i = 0; i < inputs[0].length; i++) {
     checkLine(0, i, 1, 0, inputs, visible);
     checkLine(inputs.length - 1, i, -1, 0, inputs, visible);

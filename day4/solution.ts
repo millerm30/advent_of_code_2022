@@ -1,16 +1,16 @@
 import { readFileSync } from "fs";
 
-const inputs = readFileSync("input.txt", { encoding: "utf-8" })
+const inputs = readFileSync("./input.txt", { encoding: "utf-8" })
     .replace(/\r/g, "")
     .trim()
     .split("\n");
 
-const assigmentPairs = inputs.map(line => line.split(","));
+const assigmentPairs: string[][] = inputs.map(line => line.split(","));
 
 const partOneSolution = () => {
     let totalOverlaps = 0;
 
-    const checkForOverlaps = (scopeX, scopeY) => {
+    const checkForOverlaps = (scopeX: any, scopeY: any): number => {
         let [minX, maxX] = scopeX.split("-");
         let [minY, maxY] = scopeY.split("-");
         minX = parseInt(minX);
@@ -38,7 +38,7 @@ const partOneSolution = () => {
 const partTwoSolution = () => {
   let totalOverlaps = 0;
 
-  const checkForOverlaps = (scopeX, scopeY) => {
+  const checkForOverlaps = (scopeX: any, scopeY: any): number => {
     let [minX, maxX] = scopeX.split("-");
     let [minY, maxY] = scopeY.split("-");
     minX = parseInt(minX);

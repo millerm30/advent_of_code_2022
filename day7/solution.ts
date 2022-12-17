@@ -1,10 +1,15 @@
 // Day 7: No Space Left On Device //
 import { readFileSync } from "fs";
 
-const data = readFileSync("input.txt", "utf-8").split("\n");
+const data = readFileSync("./input.txt", "utf-8").split("\n");
 
 class TreeNode {
-  constructor(key, parent = null) {
+  key: string;
+  value: number;
+  parent: TreeNode;
+  children: TreeNode[];
+
+  constructor(key: string, parent: TreeNode | null = null) {
     this.key = key;
     this.value = 0;
     this.parent = parent;
@@ -13,7 +18,7 @@ class TreeNode {
 }
 
 let tree = new TreeNode("/");
-let pointer = tree;
+let pointer: TreeNode = tree;
 let i = 0;
 while (i < data.length) {
   let line = data[i];
@@ -47,7 +52,7 @@ while (i < data.length) {
 
 // Part 1
 let acum = 0;
-const recursiveOne = (node) => {
+const recursiveOne = (node: TreeNode) => {
   let totalSum = getTotalSum(node);
   if (totalSum <= 100000) {
     acum += totalSum;
@@ -79,9 +84,9 @@ const partTwo = () => {
   console.log("Part 2: " + best);
 };
 
-let best;
+let best: number;
 let dif = 70000000;
-const findNodeBiggerThan = (node, spaceToFree) => {
+const findNodeBiggerThan = (node: TreeNode, spaceToFree: number) => {
   let totalSum = getTotalSum(node);
   if (totalSum > spaceToFree) {
     if (totalSum - spaceToFree < dif) {

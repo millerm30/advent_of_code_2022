@@ -4,47 +4,58 @@
 import { readFileSync } from "fs";
 
 // get the input file and parse the data
-const getInput = () => {
+const getInput = (): {
+  start: { y: number, x: number },
+  end: { y: number, x: number },
+  map: number[][],
+} => {
   const input = readFileSync("input.txt", "utf-8")
     .replace(/\r/g, "")
     .trim()
     .split("\n");
   // create the response object
   const response = {
-    start: {},
-    end: {},
+    start: { y: 0, x: 0 },
+    end: { y: 0, x: 0 },
     map: [],
   };
   // convert the input into a 2d array of numbers
-  response.map = input.map((line, y) => [...line].map((value, x) => {
-    response.start = value === "S" ? { y, x } : response.start;
-    response.end = value === "E" ? { y, x } : response.end;
-    return value === "S" || value === "E" ? 25 : value.charCodeAt(0) - "a".charCodeAt(0);
-  }));
+  response.map = input.map((line, y) =>
+    [...line].map((value, x) => {
+      if (value === "S") {
+        response.start = { y, x };
+      } else if (value === "E") {
+        response.end = { y, x };
+      }
+      return value === "S" || value === "E"
+        ? 25
+        : value.charCodeAt(0) - "a".charCodeAt(0);
+    })
+  );
   //console.log(response);
   return response;
 };
 
 // convert the x and y coordinates into a single integer
-const pointToInterger = (x, y) => {
+const pointToInterger = (x: number, y: number): number => {
   return y * 1e3 + x;
-}
+};
 //console.log(pointToInterger(1, 1));
 
 // convert the integer into an object with x and y coordinates
-const intergerToPoint = (int) => {
+const intergerToPoint = (int: number): { y: number, x: number } => {
   return {
     y: Math.floor(int / 1e3),
     x: int % 1e3,
   };
-}
+};
 //console.log(intergerToPoint(1000));
 
 // get the neighbors of the current point
-const getNeighbors = (x, y, map) => {
-  const neighbors = [];
+const getNeighbors = (x: number, y: number, map: number[][]): number[] => {
+  const neighbors: number[] = [];
   // array of possible directions
-  const directions = [
+  const directions: number[][] = [
     [1, 0],
     [0, 1],
     [-1, 0],
@@ -67,12 +78,12 @@ const getNeighbors = (x, y, map) => {
   return neighbors;
 };
 
-const travelMeter = (map, start, end) => {
+const travelMeter = (map: number[][], start: { x: number, y: number}, end: { x: number, y: number}): {dist: Record<number, number>, prev: Record<number, number> } => {
   // create the distance and previous objects
-  const dist = {};
-  const prev = {};
+  const dist: Record<number, number> = {};
+  const prev: Record<number, number> = {};
   // create the queue
-  let queue = [];
+  let queue: number[] = [];
   // loop through the map and add each point to the queue
   map.forEach((line, y) => {
     line.forEach((value, x) => {
@@ -85,7 +96,7 @@ const travelMeter = (map, start, end) => {
   dist[pointToInterger(start.x, start.y)] = 0;
   // loop through the queue
   while (queue.length) {
-    let u = null;
+    let u: number | null = null;
     queue.forEach((current) => {
       if (u === null || dist[current] < dist[u]) {
         u = current;
@@ -114,14 +125,16 @@ const travelMeter = (map, start, end) => {
   };
 };
 
-const partOne = () => {
+const partOne = (): void => {
   const input = getInput();
   //console.log(input);
   const data = travelMeter(input.map, input.start, input.end);
   //console.log(data);
   const distance = data.dist[pointToInterger(input.end.x, input.end.y)];
-  console.log(`The fewest number of steps is ${distance} to get the best signal!`);
-}
+  console.log(
+    `The fewest number of steps is ${distance} to get the best signal!`
+  );
+};
 
 partOne();
 
@@ -130,5 +143,3 @@ partOne();
 // Find a better starting point //
 // find the shortest path from any square at eleveation a to the square marked E //
 // find the fewest steps required to move starting from any square with elevation a to the location that should get the best signal? //
-
-

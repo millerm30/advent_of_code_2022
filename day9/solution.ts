@@ -1,7 +1,12 @@
 // Day 9: Rope Bridge //
 import { readFileSync } from "fs";
 
-const inputs = readFileSync("input.txt", "utf-8")
+interface Input {
+  direction: string;
+  totalMoves: number;
+}
+
+const inputs: Input[] = readFileSync("./input.txt", "utf-8")
   .replace(/\r/g, "")
   .trim()
   .split("\n")
@@ -33,16 +38,18 @@ const moveDefinitions = {
 };
 
 class Point {
-  constructor(x, y) {
+  x: number;
+  y: number;
+  constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
   }
-  move(direction) {
+  move(direction: string) {
     const data = moveDefinitions[direction];
     this.x += data.x;
     this.y += data.y;
   }
-  follow(point) {
+  follow(point: Point) {
     const distance = Math.max(
       Math.abs(this.x - point.x),
       Math.abs(this.y - point.y)
@@ -56,14 +63,14 @@ class Point {
   }
 }
 
-const visitedNodes = (x, y, visited) => {
+const visitedNodes = (x: number, y: number, visited: Set<string>) => {
   visited.add(`${x}-${y}`);
 };
 
 const PartOne = () => {
   const ropeHead = new Point(0, 0);
   const ropeTail = new Point(0, 0);
-  const visited = new Set();
+  const visited = new Set<string>();
   visitedNodes(0, 0, visited);
 
   for (const input of inputs) {
@@ -78,7 +85,7 @@ const PartOne = () => {
 
 const PartTwo = () => {
   const knots = new Array(10).fill(0).map((_) => new Point(0, 0));
-  const visited = new Set();
+  const visited = new Set<string>();
   visitedNodes(0, 0, visited);
 
   for (const input of inputs) {

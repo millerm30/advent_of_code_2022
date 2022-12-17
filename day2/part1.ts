@@ -1,11 +1,11 @@
 // Day 2: Rock Paper Scissors Part: One //
 import { readFileSync } from "fs";
 
-const inputs = readFileSync("input.txt", "utf-8")
+const inputs = readFileSync("./input.txt", "utf-8")
   .toString()
   .split("\n");
 
-let myPoints = 0;
+let myPoints: number = 0;
 
 const partOne = () => {
   for (let input of inputs) {

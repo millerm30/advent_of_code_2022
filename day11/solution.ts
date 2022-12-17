@@ -1,23 +1,31 @@
 import { readFileSync } from 'fs';
 
-const getOperationFunction = (input) => {
-  return function (old) {
+const getOperationFunction = (input: string) => {
+  return function (old: any) {
     const string = input.replace(/old/, old);
     // Warning: do not use in prod
     return eval(string);
   };
 };
 
-// setup the monkeys data structure
-const getMonkeys = () => {
-  const monkeys = readFileSync("input.txt", { encoding: "utf-8" })
-    .split("\n\n") // split the input into monkeys
+interface Monkey {
+  id: number;
+  totalInspectedObjects: number;
+  items: number[];
+  divisibleBy: number;
+  operation: (old: any) => any;
+  sendTo: (item: number) => number;
+}
+
+const getMonkeys = (): Monkey[] => {
+  const monkeys = readFileSync('./input.txt', { encoding: 'utf-8' })
+    .split('\n\n') // split the input into monkeys
     // map the monkeys into an object
-    .map((lines, monkeyId) => {
+    .map((lines: string, monkeyId: number) => {
       const items = lines
         .match(/Starting items(?:[:,] (\d+))+/g)[0]
-        .split(": ")[1]
-        .split(", ")
+        .split(': ')[1]
+        .split(', ')
         .map(Number);
       const operation = lines.match(/= ([^\n]+)/)[1];
       // 
@@ -34,7 +42,7 @@ const getMonkeys = () => {
         items,
         divisibleBy,
         operation: getOperationFunction(operation),
-        sendTo: (item) =>
+        sendTo: (item: number) =>
           item % divisibleBy === 0 ? whenTrueSendTo : whenFalseSendTo,
       };
     });
